@@ -156,7 +156,7 @@ body {
 
 .gameInfoPanel {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   width: 100%;
   height: 16%;
   background-color: rgba(0, 0, 0, 0.5);
@@ -176,7 +176,16 @@ body {
   background-color: rgba(214, 179, 41, 0.9);
 }
 
-.yourCase {
-  width: 30%;
-  background-color: rgba(214, 179, 41, 0.9);
+.infoPanel {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  width: 18%;
+  background-color: rgba(214, 179, 41, 0.6);
+  color: #fff;
+}
+
+.infoPanel h2 {
+  font-size: 2em;
 }
