@@ -1,6 +1,7 @@
 let playersCaseNumber;
 let playersCaseDollarValue;
 let casesAndTheirDollarValues = [];
+let gameInstruction = document.getElementById("gameInstruction");
 
 // game initialization
 // assign game dollar values randomly to all cases
@@ -24,17 +25,63 @@ let casesAndTheirDollarValues = [];
     casesAndTheirDollarValues.push(matchedPair);
 
     gameDollarValues.splice(randomNumber, 1);
+
+    gameInstruction.innerText = "Select Your Case";
   });
 })();
 
 function selectedCase(caseNumber) {
+  // if player has selected a case
   if (playersCaseNumber !== undefined) {
+    //unhighlightCaseNumber(caseNumber);
+    unhighlightSelectedDollarValueFromSideBar(caseNumber);
+    displayDollarValueOfSelectedCase(caseNumber);
     return;
   }
 
+  // setup players case
   playersCaseNumber = caseNumber;
   playersCaseDollarValue = casesAndTheirDollarValues[caseNumber][1];
 
   let playersSelectedCase = document.getElementById("playersSelectedCase");
   playersSelectedCase.innerText = playersCaseNumber + 1; // zero index work around
+
+  let playersCaseNumberToUnhighlight = document.getElementById(
+    "case-" + caseNumber
+  );
+
+  playersCaseNumberToUnhighlight.style.opacity = 0.4;
+  playersCaseNumberToUnhighlight.style.pointerEvents = "none";
+
+  gameInstruction.innerText = "Select 6 Cases";
+}
+
+function unhighlightSelectedDollarValueFromSideBar(caseNumber) {
+  let sideBarDollarValueToUnhighlight = document.getElementById(
+    "dollar-value-" + casesAndTheirDollarValues[caseNumber][1]
+  );
+
+  sideBarDollarValueToUnhighlight.style.opacity = "0.4";
+}
+
+function displayDollarValueOfSelectedCase(caseNumber) {
+  let dollarValueOfSelectedCase = casesAndTheirDollarValues[caseNumber][1];
+  let caseNumberToShowDollarValue = document.getElementById(
+    "case-" + caseNumber
+  );
+
+  caseNumberToShowDollarValue.innerText = dollarValueOfSelectedCase;
+  caseNumberToShowDollarValue.style.fontSize = "1.9em";
+  caseNumberToShowDollarValue.style.pointerEvents = "none";
+
+  if (dollarValueOfSelectedCase < 1000) {
+    caseNumberToShowDollarValue.style.backgroundColor = "lightskyblue";
+  } else if (
+    dollarValueOfSelectedCase >= 1000 &&
+    dollarValueOfSelectedCase < 30000
+  ) {
+    caseNumberToShowDollarValue.style.backgroundColor = "rgb(255,69,0)";
+  } else {
+    caseNumberToShowDollarValue.style.backgroundColor = "#22bb45";
+  }
 }

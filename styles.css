@@ -104,7 +104,7 @@ body {
 }
 
 .mediumDollarValues {
-  background-color: orangered;
+  background-color: rgb(255, 69, 0);
 }
 
 .largeDollarValues {
@@ -163,19 +163,6 @@ body {
   padding: 10px 0;
 }
 
-.toDo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30%;
-  background-color: rgba(214, 179, 41, 0.9);
-}
-
-.bankOffer {
-  width: 30%;
-  background-color: rgba(214, 179, 41, 0.9);
-}
-
 .infoPanel {
   display: flex;
   justify-content: space-evenly;
@@ -187,5 +174,32 @@ body {
 }
 
 .infoPanel h2 {
-  font-size: 2em;
+  font-size: 2.4em;
+}
+
+.bankOffer {
+  width: 36%;
+}
+
+.gameButton {
+  width: 10%;
+  border-radius: 50px;
+  box-shadow: 0px 0px 7px 5px #fff;
+  opacity: 0.4;
+  pointer-events: none;
+
+  transition: box-shadow 1sec ease;
+}
+
+.gameButton:hover {
+  cursor: pointer;
+  box-shadow: 0 0 8px 6px #fff;
+}
+
+.deal {
+  background-color: rgba(34, 187, 69, 0.6);
+}
+
+.noDeal {
+  background-color: rgba(255, 69, 0, 0.6);
 }
