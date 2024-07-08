@@ -223,25 +223,28 @@
         </div>
       </section>
 
-      <section id="gameInfoPanel" class="gameInfoPanel">
-        <div class="infoPanel">
-          <h2 id="gameInstruction"></h2>
+      <section class="gameInfoFooter">
+        <div id="gameInstructionPanel" class="gameInfoPanel"></div>
+
+        <div id="dealButton" class="gameInfoPanel gameButton deal">
+          <p>Deal</p>
         </div>
 
-        <div class="infoPanel gameButton deal">
-          <h2>Deal</h2>
+        <div id="bankOfferPanel" class="gameInfoPanel bankOffer">
+          <p>Bank Offer</p>
+          <span id="bankOfferAmount" class="case"></span>
         </div>
 
-        <div class="infoPanel bankOffer">
-          <h2>Bank Offer</h2>
+        <div
+          id="noDealButton"
+          onclick="noDealContinueGame()"
+          class="gameInfoPanel gameButton noDeal"
+        >
+          <p>No Deal</p>
         </div>
 
-        <div class="infoPanel gameButton noDeal">
-          <h2>No Deal</h2>
-        </div>
-
-        <div class="infoPanel">
-          <h2>Your Case</h2>
+        <div class="gameInfoPanel">
+          <p>Your Case</p>
           <div id="playersSelectedCase" class="case"></div>
         </div>
       </section>
