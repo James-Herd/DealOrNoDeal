@@ -10,6 +10,64 @@ let bankOfferAmount = document.getElementById("bankOfferAmount");
 let imageUrls = ["bean-3.gif", "bean-5.gif", "bean-6.gif", "bean-10.gif"];
 let calculatedBankOfferAmount = 0;
 let playersSelectedCase = document.getElementById("playersSelectedCase");
+let noDealBanner = document.getElementById("noDealBanner");
+let animateCSSClassNames = [
+  "bounce",
+  "flash",
+  "pulse",
+  "rubberBand",
+  "shakeX",
+  "shakeY",
+  "headShake",
+  "swing",
+  "tada",
+  "wobble",
+  "jello",
+  "heartBeat",
+  "backInDown",
+  "backInLeft",
+  "backInRight",
+  "backInUp",
+  "bounceIn",
+  "bounceInDown",
+  "bounceInLeft",
+  "bounceInRight",
+  "bounceInUp",
+  "fadeIn",
+  "fadeInDown",
+  "fadeInDownBig",
+  "fadeInLeft",
+  "fadeInLeftBig",
+  "fadeInRight",
+  "fadeInRightBig",
+  "fadeInUp",
+  "fadeInUpBig",
+  "fadeInTopLeft",
+  "fadeInTopRight",
+  "fadeInBottomLeft",
+  "fadeInBottomRight",
+  "flip",
+  "flipInX",
+  "flipInY",
+  "lightSpeedInRight",
+  "lightSpeedInLeft",
+  "rotateIn",
+  "rotateInDownLeft",
+  "rotateInDownRight",
+  "rotateInUpLeft",
+  "rotateInUpRight",
+  "jackInTheBox",
+  "rollin",
+  "zoomIn",
+  "zoomInDown",
+  "zoomInLeft",
+  "zoomInRight",
+  "zoomInUp",
+  "slideInDown",
+  "slideInLeft",
+  "slideInRight",
+  "slideInUp",
+];
 
 // game initialization
 (function assignDollarValuesToCases() {
@@ -195,6 +253,15 @@ async function noDealContinueGame() {
   bankOfferAmount.innerHTML = "";
   bankOfferAmount.style.backgroundImage = "url(gifs/bean-7.gif";
 
+  let randeomNumber = Math.floor(Math.random() * animateCSSClassNames.length);
+  let animationClassToAdd = animateCSSClassNames[randeomNumber];
+
+  noDealBanner.classList.add(
+    "animate__animated",
+    "animate__" + animationClassToAdd
+  );
+  noDealBanner.classList.add("display");
+
   await sleep(3750);
 
   for (let i = 0; i < casesAndTheirDollarValues.length; i++) {
@@ -203,9 +270,12 @@ async function noDealContinueGame() {
 
       caseToReenable.classList.remove("unactive");
       caseToReenable.style.pointerEvents = "all";
-      bankOfferAmount.style.backgroundImage = "none";
     }
   }
+
+  bankOfferAmount.style.backgroundImage = "";
+  noDealBanner.classList.remove("display");
+  noDealBanner.classList.remove("animate__" + animationClassToAdd);
 
   switch (openedCases) {
     case 6:
