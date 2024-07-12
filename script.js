@@ -201,6 +201,8 @@ function updateGameInstructionPanel(caseNumber) {
       gameInstructionPanel.innerHTML =
         "<span class='case'>0</span><p> Cases To Open</p>";
 
+      dealButton.classList.add("activateButton");
+      noDealButton.classList.add("activateButton");
       paragraphYes.addEventListener("click", resetGame);
       paragraphNo.addEventListener("click", untilNextTime);
   }
@@ -210,7 +212,7 @@ function resetGame() {}
 
 async function untilNextTime() {
   bankOfferAmount.style.display = "inline";
-  bankOfferAmount.style.backgroundImage = "none";
+  bankOfferAmount.style.backgroundImage = "url()";
   bankOfferAmount.style.backgroundImage = "url(gifs/bean-10.gif)";
   await sleep(3000);
   bankOfferAmount.style.display = "none";
@@ -245,12 +247,13 @@ async function activateDealAndNoDealButtons() {
   dealButton.classList.add("activateButton");
   noDealButton.classList.add("activateButton");
 
-  bankOfferAmount.style.backgroundImage = "none";
+  bankOfferAmount.style.backgroundImage = "url()";
   bankOfferAmount.innerHTML = "$" + calculatedBankOfferAmount.toString();
 }
 
 async function noDealContinueGame() {
   bankOfferAmount.innerHTML = "";
+  bankOfferAmount.style.backgroundImage = "url()";
   bankOfferAmount.style.backgroundImage = "url(gifs/bean-7.gif";
 
   let randeomNumber = Math.floor(Math.random() * animateCSSClassNames.length);
@@ -262,7 +265,7 @@ async function noDealContinueGame() {
   );
   noDealBanner.classList.add("display");
 
-  await sleep(3750);
+  await sleep(3500);
 
   for (let i = 0; i < casesAndTheirDollarValues.length; i++) {
     if (casesAndTheirDollarValues[i][0] !== null) {
