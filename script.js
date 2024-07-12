@@ -247,9 +247,6 @@ function unhighlightBankOfferPanel() {
 }
 
 function calculateBankOfferAmount() {
-  let plusOrMinus = Math.floor(Math.random() * 2);
-  let plus = plusOrMinus === 1 ? "+" : "-";
-
   calculatedBankOfferAmount = 0;
 
   for (let i = 0; i < casesAndTheirDollarValues.length; i++) {
@@ -258,8 +255,15 @@ function calculateBankOfferAmount() {
     }
   }
 
+  calculatedBankOfferAmount = calculatedBankOfferAmount / (26 - openedCases);
+
+  let randomPercentAmount = Math.floor(Math.random() * (40 - 5 + 1)) + 5; // random number between 5 & 20
+
+  let randomAmountToSubtract =
+    (calculatedBankOfferAmount * randomPercentAmount) / 100;
+
   calculatedBankOfferAmount = Math.floor(
-    calculatedBankOfferAmount / (26 - openedCases)
+    calculatedBankOfferAmount - randomAmountToSubtract
   ).toLocaleString();
 
   return calculatedBankOfferAmount;
