@@ -1,4 +1,4 @@
-let playersCaseNumber;
+let playersCaseNumber = null;
 let playersCaseDollarValue;
 let openedCases = 0;
 let casesAndTheirDollarValues = [];
@@ -68,19 +68,26 @@ let animateCSSClassNames = [
   "slideInRight",
   "slideInUp",
 ];
+let yesButton = document.getElementById("yesButton");
+let noButton = document.getElementById("noButton");
+let bankOfferPanelText = document.getElementById("bankOfferPanelText");
+let caseNumbers = [
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+  23, 24, 25, 26,
+];
+
+let gameDollarValuesCopy = [
+  0.5, 1, 2, 5, 10, 20, 50, 100, 150, 200, 250, 500, 750, 1000, 2000, 3000,
+  5000, 7500, 10000, 20000, 30000, 40000, 50000, 75000, 100000, 200000,
+];
 
 // game initialization
-(function assignDollarValuesToCases() {
-  let caseNumbers = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-    22, 23, 24, 25, 26,
-  ];
-
+function initializeNewGame() {
+  casesAndTheirDollarValues = []; // reset to empty array for subsequent games
   let gameDollarValues = [
     0.5, 1, 2, 5, 10, 20, 50, 100, 150, 200, 250, 500, 750, 1000, 2000, 3000,
     5000, 7500, 10000, 20000, 30000, 40000, 50000, 75000, 100000, 200000,
   ];
-
   caseNumbers.forEach((caseNumber) => {
     let matchedPair = [];
     let randomNumber = Math.floor(Math.random() * gameDollarValues.length);
@@ -90,14 +97,14 @@ let animateCSSClassNames = [
     casesAndTheirDollarValues.push(matchedPair);
 
     gameDollarValues.splice(randomNumber, 1);
-
-    gameInstructionPanel.innerHTML =
-      "<p>Select Your </p><span class='case caseText'>Case</span>";
   });
-})();
+
+  gameInstructionPanel.innerHTML =
+    "<p>Select Your </p><span class='case caseText'>Case</span>";
+}
 
 function selectedCase(caseNumber) {
-  if (playersCaseNumber !== undefined) {
+  if (playersCaseNumber !== null) {
     unhighlightSelectedDollarValueFromSideBar(caseNumber);
     displayDollarValueOfSelectedCase(caseNumber);
     updateGameInstructionPanel(caseNumber);
@@ -117,8 +124,7 @@ function setupPlayersCaseNumberAndDollarValue(caseNumber) {
     "case-" + caseNumber
   );
 
-  playersCaseNumberToUnhighlight.style.opacity = 0.4;
-  playersCaseNumberToUnhighlight.style.pointerEvents = "none";
+  playersCaseNumberToUnhighlight.classList.add("unactive");
 
   gameInstructionPanel.innerHTML =
     "<span class='case'>6</span> <p>Cases To Open</p>";
@@ -227,7 +233,6 @@ function deactivateRemainingCases() {
       let caseToDisableTemporarily = document.getElementById("case-" + (i + 1));
 
       caseToDisableTemporarily.classList.add("unactive");
-      caseToDisableTemporarily.style.pointerEvents = "none";
     }
   }
 }
@@ -242,13 +247,97 @@ function showBankOfferPanel() {
 }
 
 async function activateDealAndNoDealButtons() {
-  await sleep(3500);
+  await sleep(3300);
 
   dealButton.classList.add("activateButton");
   noDealButton.classList.add("activateButton");
 
   bankOfferAmount.style.backgroundImage = "url()";
   bankOfferAmount.innerHTML = "$" + calculatedBankOfferAmount.toString();
+}
+
+function dealEndGame() {
+  let bankOfferPanelText = document.getElementById("bankOfferPanelText");
+  bankOfferPanelText.innerText = "You Win";
+
+  bankOfferAmount.innerHTML = "$" + calculatedBankOfferAmount.toString();
+
+  displayDollarValueOfSelectedCase(null, "yes");
+
+  gameInstructionPanel.innerText = "Play Again?";
+
+  dealButton.classList.add("hide");
+  yesButton.classList.remove("hide");
+  yesButton.classList.add("activateButton");
+
+  noDealButton.classList.add("hide");
+  noButton.classList.remove("hide");
+  noButton.classList.add("activateButton");
+
+  //bankOfferPanelText.innerText = "Bank Offer";
+  //bankOfferAmount.innerText = "";
+  bankOfferAmount.innerText = "$" + calculatedBankOfferAmount;
+}
+
+function yesPlayAgain() {
+  playersCaseNumber = null;
+  openedCases = 0;
+
+  initializeNewGame();
+  resetCasesToDisplayCaseNumbers();
+  resetSideBarDollarValuesOpacity();
+  resetButtonsAndInfoPanelText();
+}
+
+function resetCasesToDisplayCaseNumbers() {
+  for (let i = 1; i <= 26; i++) {
+    let gameCase = document.getElementById("case-" + i.toString());
+    gameCase.innerText = i;
+    gameCase.classList.remove(
+      "displayedCaseDollarValue",
+      "backgroundColourBlue",
+      "backgroundColourRed",
+      "backgroundColourGreen",
+      "unactive"
+    );
+  }
+  playersSelectedCase.classList.remove(
+    "displayedCaseDollarValue",
+    "backgroundColourBlue",
+    "backgroundColourRed",
+    "backgroundColourGreen"
+  );
+  playersSelectedCase.innerText = "";
+}
+
+function resetButtonsAndInfoPanelText() {
+  gameInstructionPanel.innerHTML =
+    "<p>Select Your </p><span class='case caseText'>Case</span>";
+
+  yesButton.classList.add("hide");
+  dealButton.classList.remove("hide");
+  dealButton.classList.remove("activateButton");
+
+  bankOfferPanelText.innerText = "Bank Offer";
+  bankOfferPanel.classList.remove("highlight");
+  bankOfferAmount.innerText = "";
+
+  noButton.classList.add("hide");
+  noDealButton.classList.remove("hide");
+  noDealButton.classList.remove("activateButton");
+}
+
+function resetSideBarDollarValuesOpacity() {
+  for (i = 0; i < 26; i++) {
+    let x = document.getElementById(
+      "dollar-value-" + gameDollarValuesCopy[i].toString()
+    );
+    x.classList.remove("unhighlight");
+  }
+}
+
+function noDontPlayAgain() {
+  alert("no");
 }
 
 async function noDealContinueGame() {
@@ -272,7 +361,6 @@ async function noDealContinueGame() {
       let caseToReenable = document.getElementById("case-" + (i + 1));
 
       caseToReenable.classList.remove("unactive");
-      caseToReenable.style.pointerEvents = "all";
     }
   }
 
@@ -347,13 +435,14 @@ function unhighlightSelectedDollarValueFromSideBar(caseNumber) {
     "dollar-value-" + casesAndTheirDollarValues[caseNumber - 1][1] // -1 for zero indexing bug otherwise
   );
 
-  sideBarDollarValueToUnhighlight.style.opacity = "0.4";
+  sideBarDollarValueToUnhighlight.classList.add("unhighlight");
 }
 
-function displayDollarValueOfSelectedCase(caseNumber) {
+function displayDollarValueOfSelectedCase(caseNumber, deal = "no") {
   let caseNumberToShowDollarValue;
-  if (caseNumber === playersCaseNumber) {
+  if (deal === "yes") {
     // reveal players case dollar value aat end of game
+    caseNumber = playersCaseNumber;
     caseNumberToShowDollarValue = document.getElementById(
       "playersSelectedCase"
     );
@@ -365,20 +454,17 @@ function displayDollarValueOfSelectedCase(caseNumber) {
 
   caseNumberToShowDollarValue.innerText =
     "$" + dollarValueOfSelectedCase.toLocaleString();
-  caseNumberToShowDollarValue.style.fontSize = "1.8em";
-  caseNumberToShowDollarValue.style.color = "#fff";
-  caseNumberToShowDollarValue.style.pointerEvents = "none";
-  caseNumberToShowDollarValue.style.fontWeight = "600";
+  caseNumberToShowDollarValue.classList.add("displayedCaseDollarValue");
 
   if (dollarValueOfSelectedCase < 1000) {
-    caseNumberToShowDollarValue.style.backgroundColor = "lightskyblue";
+    caseNumberToShowDollarValue.classList.add("backgroundColourBlue");
   } else if (
     dollarValueOfSelectedCase >= 1000 &&
     dollarValueOfSelectedCase < 30000
   ) {
-    caseNumberToShowDollarValue.style.backgroundColor = "rgb(255,69,0)";
+    caseNumberToShowDollarValue.classList.add("backgroundColourRed");
   } else {
-    caseNumberToShowDollarValue.style.backgroundColor = "#22bb45";
+    caseNumberToShowDollarValue.classList.add("backgroundColourGreen");
   }
 }
 
@@ -386,3 +472,5 @@ function displayDollarValueOfSelectedCase(caseNumber) {
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+window.onload = initializeNewGame();

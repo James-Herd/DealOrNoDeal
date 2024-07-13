@@ -183,10 +183,6 @@ body {
   justify-content: space-evenly;
 }
 
-.gameInfoPanel .case {
-  font-size: 6.5em;
-}
-
 .gameInfoPanel .caseText {
   font-size: 3.2em;
 }
@@ -226,10 +222,6 @@ body {
   transition: opacity 1s;
 }
 
-.unactive {
-  opacity: 0.4;
-}
-
 .gameButton:hover {
   cursor: pointer;
   box-shadow: 0 0 8px 6px #fff;
@@ -249,8 +241,17 @@ body {
   cursor: pointer;
 }
 
+.unactive {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
 .highlight {
   opacity: 1;
+}
+
+.unhighlight {
+  opacity: 0.4;
 }
 
 .noDealBanner {
@@ -272,4 +273,27 @@ body {
 
 .display {
   display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.displayedCaseDollarValue {
+  color: #fff;
+  font-size: 1.8em;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.backgroundColourBlue {
+  background-color: lightskyblue;
+}
+
+.backgroundColourRed {
+  background-color: rgb(255, 69, 0);
+}
+
+.backgroundColourGreen {
+  background-color: #22bb45;
 }

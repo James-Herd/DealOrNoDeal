@@ -231,12 +231,23 @@
       <section class="gameInfoFooter">
         <div id="gameInstructionPanel" class="gameInfoPanel"></div>
 
-        <div id="dealButton" class="gameInfoPanel gameButton deal">
+        <div
+          id="dealButton"
+          class="gameInfoPanel gameButton deal"
+          onclick="dealEndGame()"
+        >
           <p>Deal</p>
+        </div>
+        <div
+          id="yesButton"
+          class="gameInfoPanel gameButton deal hide"
+          onclick="yesPlayAgain()"
+        >
+          Yes
         </div>
 
         <div id="bankOfferPanel" class="gameInfoPanel bankOffer">
-          <p>Bank Offer</p>
+          <p id="bankOfferPanelText">Bank Offer</p>
           <span id="bankOfferAmount" class="case"></span>
         </div>
 
@@ -246,6 +257,13 @@
           class="gameInfoPanel gameButton noDeal"
         >
           <p>No Deal</p>
+        </div>
+        <div
+          id="noButton"
+          class="gameInfoPanel gameButton noDeal hide"
+          onclick="noDontPlayAgain()"
+        >
+          No
         </div>
 
         <div class="gameInfoPanel">
