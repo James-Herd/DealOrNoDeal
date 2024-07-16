@@ -20,7 +20,7 @@ body {
   background-position: center center; /* Optional: Center the background image */
 }
 
-.dealOrNoDealBanner {
+.dealOrNoDealHeader {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -170,33 +170,33 @@ body {
   justify-content: space-evenly;
   align-items: center;
 
-  width: 18%;
+  font-size: 2.5em;
+  width: 21%;
   background-color: rgba(214, 179, 41, 0.6);
   color: #fff;
   border-radius: 5px;
   box-shadow: 0px 0px 7px 4px #fff;
 }
 
-.gameInfoPanel p {
+/* .gameInfoPanel .case {
   font-size: 1.8em;
-  display: inline-flex;
-  justify-content: space-evenly;
-}
+} */
 
 .gameInfoPanel .caseText {
-  font-size: 3.2em;
+  font-size: 1.3em;
 }
-
-.gameInfoPanel .dealOrNoDeal {
+.gameInfoPanel .caseNumber {
   font-size: 2.8em;
 }
+/* .gameInfoPanel .dealOrNoDeal {
+  font-size: 2.8em;
+} */
 
 .bankOffer {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   width: 24%;
-  font-size: 1.8em;
   opacity: 0.4;
 
   transition: opacity 1s;
@@ -207,7 +207,7 @@ body {
   width: 160px;
   height: 120px;
   pointer-events: none;
-  font-size: 1.2em;
+  font-size: 0.9em;
   font-weight: 600;
 }
 
@@ -217,7 +217,6 @@ body {
   box-shadow: 0px 0px 7px 5px #fff;
   opacity: 0.4;
   pointer-events: none;
-  font-size: 1.8em;
 
   transition: opacity 1s;
 }
@@ -254,7 +253,7 @@ body {
   opacity: 0.4;
 }
 
-.noDealBanner {
+.dealOrNoDealBanner {
   position: absolute;
   left: 20%;
   top: 30%;
@@ -269,6 +268,7 @@ body {
   border-radius: 10px;
   display: none;
   z-index: 1;
+  text-align: center;
 }
 
 .display {
@@ -296,4 +296,12 @@ body {
 
 .backgroundColourGreen {
   background-color: #22bb45;
+}
+
+.playersCaseDollarValue {
+  font-size: 0.7em;
+}
+
+.bankOffer .caseTextLarge {
+  font-size: 3em;
 }

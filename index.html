@@ -12,9 +12,9 @@
   </head>
   <header></header>
   <body>
-    <div id="noDealBanner" class="noDealBanner">NO DEAL!!</div>
+    <div id="dealOrNoDealBanner" class="dealOrNoDealBanner"></div>
     <div id="flexContainer" class="flexContainer">
-      <section id="dealOrNoDealBanner" class="dealOrNoDealBanner">
+      <section id="dealOrNoDealHeader" class="dealOrNoDealHeader">
         <span class="word-deal">Deal</span>
         <span class="wordOr">Or</span>
         <span class="wordNoDeal">No Deal</span>
@@ -236,8 +236,9 @@
           class="gameInfoPanel gameButton deal"
           onclick="dealEndGame()"
         >
-          <p>Deal</p>
+          Deal
         </div>
+
         <div
           id="yesButton"
           class="gameInfoPanel gameButton deal hide"
@@ -247,7 +248,7 @@
         </div>
 
         <div id="bankOfferPanel" class="gameInfoPanel bankOffer">
-          <p id="bankOfferPanelText">Bank Offer</p>
+          <div id="bankOfferPanelText">Bank Offer</div>
           <span id="bankOfferAmount" class="case"></span>
         </div>
 
@@ -256,7 +257,7 @@
           onclick="noDealContinueGame()"
           class="gameInfoPanel gameButton noDeal"
         >
-          <p>No Deal</p>
+          No Deal
         </div>
         <div
           id="noButton"
@@ -267,8 +268,8 @@
         </div>
 
         <div class="gameInfoPanel">
-          <p>Your Case</p>
-          <div id="playersSelectedCase" class="case"></div>
+          Your Case
+          <div id="playersSelectedCase" class="case caseNumber"></div>
         </div>
       </section>
     </div>
