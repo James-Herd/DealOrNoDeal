@@ -101,6 +101,15 @@ function initializeNewGame() {
 
   gameInstructionPanel.innerHTML =
     "Select Your <div class='case caseText'>Case</div>";
+
+  let topPrizePanel = document.getElementById("topPrizePanel");
+  let topPrize = 0;
+  if (localStorage.getItem("topPrize") !== null) {
+    topPrize = localStorage.getItem("topPrize");
+    topPrizePanel.innerText = "Top Prize: $" + topPrize;
+  } else {
+    topPrizePanel.innerText = "Top Prize: $0";
+  }
 }
 
 function selectedCase(caseNumber) {
@@ -241,6 +250,8 @@ async function activateDealAndNoDealButtons() {
 }
 
 function dealEndGame() {
+  setTopPrize();
+
   let bankOfferPanelText = document.getElementById("bankOfferPanelText");
   bankOfferPanelText.innerText = "You Win";
 
@@ -476,6 +487,14 @@ function displayDollarValueOfSelectedCase(
     caseNumberToShowDollarValue.classList.add("backgroundColourRed");
   } else {
     caseNumberToShowDollarValue.classList.add("backgroundColourGreen");
+  }
+}
+
+function setTopPrize() {
+  let topPrize = localStorage.getItem("topPrize");
+
+  if (topPrize === null || topPrize < calculatedBankOfferAmount) {
+    localStorage.setItem("topPrize", calculatedBankOfferAmount);
   }
 }
 
