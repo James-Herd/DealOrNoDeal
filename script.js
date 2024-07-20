@@ -102,14 +102,7 @@ function initializeNewGame() {
   gameInstructionPanel.innerHTML =
     "Select Your <div class='case caseText'>Case</div>";
 
-  let topPrizePanel = document.getElementById("topPrizePanel");
-  let topPrize = 0;
-  if (localStorage.getItem("topPrize") !== null) {
-    topPrize = localStorage.getItem("topPrize");
-    topPrizePanel.innerText = "Top Prize: $" + topPrize;
-  } else {
-    topPrizePanel.innerText = "Top Prize: $0";
-  }
+  displayTopPrizeValue();
 }
 
 function selectedCase(caseNumber) {
@@ -200,6 +193,9 @@ function updateGameInstructionPanel(caseNumber) {
       break;
 
     case 25:
+      setTopPrizeValue(playersCaseDollarValue);
+      displayTopPrizeValue();
+
       yesButton.classList.remove("hide");
       yesButton.classList.add("activateButton");
       dealButton.classList.add("hide");
@@ -250,7 +246,8 @@ async function activateDealAndNoDealButtons() {
 }
 
 function dealEndGame() {
-  setTopPrize();
+  setTopPrizeValue(calculatedBankOfferAmount);
+  displayTopPrizeValue();
 
   let bankOfferPanelText = document.getElementById("bankOfferPanelText");
   bankOfferPanelText.innerText = "You Win";
@@ -490,11 +487,33 @@ function displayDollarValueOfSelectedCase(
   }
 }
 
-function setTopPrize() {
-  let topPrize = localStorage.getItem("topPrize");
+function setTopPrizeValue(dollarValue) {
+  let savedTopPrize = localStorage.getItem("topPrize");
 
-  if (topPrize === null || topPrize < calculatedBankOfferAmount) {
-    localStorage.setItem("topPrize", calculatedBankOfferAmount);
+  dollarValue = dollarValue.replace(/,/g, "");
+
+  if (savedTopPrize === null) {
+    localStorage.setItem("topPrize", dollarValue);
+    return;
+  }
+
+  dollarValue = Number(dollarValue);
+  savedTopPrize = Number(savedTopPrize);
+
+  if (savedTopPrize < dollarValue) {
+    localStorage.setItem("topPrize", dollarValue);
+  }
+}
+
+function displayTopPrizeValue() {
+  let topPrizePanel = document.getElementById("topPrizePanel");
+  let savedTopPrize = localStorage.getItem("topPrize");
+
+  if (savedTopPrize !== null) {
+    savedTopPrize = Number(savedTopPrize).toLocaleString();
+    topPrizePanel.innerText = "Top Prize: $" + savedTopPrize;
+  } else {
+    topPrizePanel.innerText = "Top Prize: $0";
   }
 }
 
