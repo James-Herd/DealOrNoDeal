@@ -490,7 +490,9 @@ function displayDollarValueOfSelectedCase(
 function setTopPrizeValue(dollarValue) {
   let savedTopPrize = localStorage.getItem("topPrize");
 
-  dollarValue = dollarValue.replace(/,/g, "");
+  if (typeof dollarValue === "string") {
+    dollarValue = dollarValue.replace(/,/g, "");
+  }
 
   if (savedTopPrize === null) {
     localStorage.setItem("topPrize", dollarValue);
